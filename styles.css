@@ -1,4 +1,3 @@
-/* Основні стилі */
 * {
     margin: 0;
     padding: 0;
@@ -7,30 +6,33 @@
 
 body {
     font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f9f9f9;
-    margin: 0;
+    padding: 20px;
 }
 
-.container {
-    background: white;
+.container, #loginScreen, #teacherPanel, #studentPanel {
+    background: #fff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
     text-align: center;
-    width: 90%;
-    max-width: 400px;
 }
 
-/* Ховаємо панелі за замовчуванням */
+h1, h2 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
 .hidden {
     display: none;
 }
 
-/* Поля введення */
 input, textarea {
     width: 100%;
     padding: 10px;
@@ -40,26 +42,52 @@ input, textarea {
     font-size: 16px;
 }
 
-/* Кнопки */
+textarea {
+    height: 100px;
+    resize: none;
+}
+
 button {
     padding: 10px 15px;
-    background-color: #4CAF50;
-    color: white;
+    background: #007bff;
+    color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    transition: 0.3s;
 }
 
 button:hover {
-    background-color: #45a049;
+    background: #0056b3;
 }
 
-/* Адаптація під телефон і планшет */
+/* Стилі для статусних повідомлень */
+p {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Успішне повідомлення */
+p.success {
+    color: green;
+}
+
+/* Помилка */
+p.error {
+    color: red;
+}
+
+/* Адаптація під мобільні пристрої */
 @media (max-width: 768px) {
-    .container {
-        width: 95%;
-        padding: 15px;
+    body {
+        padding: 10px;
+    }
+
+    .container, #loginScreen, #teacherPanel, #studentPanel {
+        width: 100%;
+        max-width: 90%;
     }
 
     input, textarea {
@@ -68,21 +96,5 @@ button:hover {
 
     button {
         font-size: 14px;
-    }
-}
-
-@media (max-width: 480px) {
-    h2 {
-        font-size: 20px;
-    }
-
-    input, textarea {
-        font-size: 13px;
-        padding: 8px;
-    }
-
-    button {
-        font-size: 13px;
-        padding: 8px;
     }
 }

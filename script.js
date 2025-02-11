@@ -1,77 +1,60 @@
-// Користувачі (логіни та паролі)
+// 📌 Логіни та паролі
 const users = {
-    "hreschena": "teacher123",  // Логін хрещеної
-    "uchyn": "student123"        // Логін учня
+    "student": "1234",
+    "teacher": "admin"
 };
 
-// 🔹 Вхід у систему
+// 📌 Авторизація
 function login() {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
     if (users[username] && users[username] === password) {
         localStorage.setItem("loggedUser", username);
-        showPanel(username);
+        document.getElementById("loginScreen").classList.add("hidden");
+
+        if (username === "student") {
+            document.getElementById("studentPanel").classList.remove("hidden");
+            getHomework();
+        } else if (username === "teacher") {
+            document.getElementById("teacherPanel").classList.remove("hidden");
+            getAnswer();
+        }
     } else {
-        alert("Невірний логін або пароль");
+        alert("Невірний логін або пароль!");
     }
 }
 
-// 🔹 Відображення панелі відповідно до ролі
-function showPanel(username) {
-    document.getElementById("login-form").classList.add("hidden");
-
-    if (username === "hreschena") {
-        document.getElementById("teacher-panel").classList.remove("hidden");
-        loadHomework();
-        loadStudentAnswer();
-    } else if (username === "uchyn") {
-        document.getElementById("student-panel").classList.remove("hidden");
-        loadHomework();
-    }
-}
-
-// 🔹 Функція виходу
-function logout() {
-    localStorage.removeItem("loggedUser");
-    location.reload();
-}
-
-// 🔹 Хрещена створює завдання
+// 📌 Збереження домашнього завдання (видно учню)
 function saveHomework() {
-    const homework = document.getElementById("homework-text").value;
-    localStorage.setItem("homework", homework);
-    alert("Завдання збережено!");
+    const homeworkText = document.getElementById("homeworkInput").value;
+    localStorage.setItem("homework", homeworkText);
+    document.getElementById("homeworkMessage").innerText = "Завдання збережено!";
 }
 
-// 🔹 Завантаження завдання (бачить учень)
-function loadHomework() {
+// 📌 Отримання домашнього завдання
+function getHomework() {
     const homework = localStorage.getItem("homework");
-    if (homework) {
-        document.getElementById("homework-display").innerText = homework;
-        document.getElementById("homework-text").value = homework;
-    }
+    document.getElementById("homeworkDisplay").innerText = homework ? homework : "Немає завдання";
 }
 
-// 🔹 Учень відправляє відповідь
-function sendAnswer() {
-    const answer = document.getElementById("student-answer-text").value;
-    localStorage.setItem("studentAnswer", answer);
-    alert("Відповідь надіслана!");
+// 📌 Збереження відповіді учня (видно хрещеній)
+function saveAnswer() {
+    const answerText = document.getElementById("answerInput").value;
+    localStorage.setItem("studentAnswer", answerText);
+    document.getElementById("answerMessage").innerText = "Відповідь відправлена!";
 }
 
-// 🔹 Хрещена бачить відповідь учня
-function loadStudentAnswer() {
+// 📌 Отримання відповіді учня
+function getAnswer() {
     const answer = localStorage.getItem("studentAnswer");
-    if (answer) {
-        document.getElementById("student-answer").innerText = answer;
-    }
+    document.getElementById("answerDisplay").innerText = answer ? answer : "Немає відповіді";
 }
 
-// 🔹 Перевіряємо, чи хтось уже залогінений
+// 📌 Автоматичне входження при перезавантаженні сторінки
 document.addEventListener("DOMContentLoaded", () => {
     const loggedUser = localStorage.getItem("loggedUser");
     if (loggedUser) {
-        showPanel(loggedUser);
+        login(loggedUser);
     }
 });
