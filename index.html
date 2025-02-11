@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Англійська з хрещеною</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Форма входу -->
+        <div id="login-form">
+            <h2>Вхід</h2>
+            <form onsubmit="login(); return false;">
+                <input type="text" id="username" name="username" placeholder="Логін" autocomplete="username" required>
+                <input type="password" id="password" name="password" placeholder="Пароль" autocomplete="current-password" required>
+                <button type="submit">Увійти</button>
+            </form>
+        </div>
+
+        <!-- Панель хрещеної -->
+        <div id="teacher-panel" class="hidden">
+            <h2>Панель хрещеної</h2>
+            <textarea id="homework-text" placeholder="Введіть завдання..."></textarea>
+            <button onclick="saveHomework()">Зберегти завдання</button>
+            <h3>Відповідь учня:</h3>
+            <p id="student-answer"></p>
+            <button onclick="logout()">Вийти</button>
+        </div>
+
+        <!-- Панель учня -->
+        <div id="student-panel" class="hidden">
+            <h2>Панель учня</h2>
+            <p><strong>Ваше завдання:</strong></p>
+            <p id="homework-display"></p>
+            <textarea id="student-answer-text" placeholder="Введіть відповідь..."></textarea>
+            <button onclick="sendAnswer()">Відправити</button>
+            <button onclick="logout()">Вийти</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
